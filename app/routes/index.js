@@ -2,6 +2,7 @@
 
 var path = process.cwd();
 var ClickHandler = require(path + '/app/controllers/clickHandler.server.js');
+var time = require('./time.js')
 
 module.exports = function (app, passport) {
 
@@ -9,11 +10,12 @@ module.exports = function (app, passport) {
 		if (req.isAuthenticated()) {
 			return next();
 		} else {
-			res.redirect('/login');
+			res.redirect('./login');
 		}
 	}
 
 	var clickHandler = new ClickHandler();
+	app.use('/time',time);
 
 	app.route('/')
 		.get(isLoggedIn, function (req, res) {
