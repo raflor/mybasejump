@@ -2,7 +2,8 @@
 
 var path = process.cwd();
 var ClickHandler = require(path + '/app/controllers/clickHandler.server.js');
-var time = require('./time.js')
+var time = require('../../time.js');
+var whoami = require('../../whoami.js');
 
 module.exports = function (app, passport) {
 
@@ -15,7 +16,9 @@ module.exports = function (app, passport) {
 	}
 
 	var clickHandler = new ClickHandler();
+	// routes to challanges
 	app.use('/time',time);
+	app.use('/whoami',whoami);
 
 	app.route('/')
 		.get(isLoggedIn, function (req, res) {
