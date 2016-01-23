@@ -4,6 +4,8 @@ var path = process.cwd();
 var ClickHandler = require(path + '/app/controllers/clickHandler.server.js');
 var time = require('../../time.js');
 var whoami = require('../../whoami.js');
+var short = require('../../short/short.js');
+var short_redirect = require('../../short/short_redirect.js');
 
 module.exports = function (app, passport) {
 
@@ -17,8 +19,16 @@ module.exports = function (app, passport) {
 
 	var clickHandler = new ClickHandler();
 	// routes to challanges
+	/*
+	app.param('url_arg',function(req, res, next, url_arg){
+		req.url = encodeURIComponent(url_arg);
+		console.log("param");
+		next();
+	});*/
 	app.use('/time',time);
 	app.use('/whoami',whoami);
+	app.use('/short',short);
+	app.use('/s',short_redirect);
 
 	app.route('/')
 		.get(isLoggedIn, function (req, res) {
